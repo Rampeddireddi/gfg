@@ -8,10 +8,10 @@ class Solution {
   private:
   void dfs(vector<vector<int>>&adj,vector<int>&res,int node, vector<int>&vis){
      res.push_back(node);
-     vis[node]=1;
+    //  vis[node]=1;
      for(int i=0;i<adj[node].size();i++){
          if(!vis[adj[node][i]]){
-            //  vis[adj[node][i]]=1;
+             vis[adj[node][i]]=1;
              dfs(adj,res,adj[node][i],vis);
          }
      }
