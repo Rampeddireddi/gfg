@@ -9,56 +9,58 @@ class Solution {
     // Function to detect cycle in an undirected graph.
     bool isCycle(vector<vector<int>>& adj) {
         // Code here 
-        vector<int> vis(adj.size(), 0);
-    queue<pair<int, int>> q;
-    int n = adj.size();
+    //     vector<int> vis(adj.size(), 0);
+    // queue<pair<int, int>> q;
+    // int n = adj.size();
     
-    for (int i = 0; i < n; i++) {
-        if (vis[i] == 0) {
-            q.push({i, -1});  // Push the node with parent -1
-            vis[i] = 1;  // Mark as visited
+    // for (int i = 0; i < n; i++) {
+    //     if (vis[i] == 0) {
+    //         q.push({i, -1});  // Push the node with parent -1
+    //         vis[i] = 1;  // Mark as visited
 
-            while (!q.empty()) {
-                auto ele = q.front();
-                q.pop();
-                int node = ele.first;
-                int parent = ele.second;
+    //         while (!q.empty()) {
+    //             auto ele = q.front();
+    //             q.pop();
+    //             int node = ele.first;
+    //             int parent = ele.second;
 
-                for (int neighbor : adj[node]) {
-                    if (!vis[neighbor]) {  // If not visited
-                        vis[neighbor] = 1;
-                        q.push({neighbor, node});
-                    } else if (neighbor != parent) {
-                        return true;  // Cycle detected
-                    }
+    //             for (int neighbor : adj[node]) {
+    //                 if (!vis[neighbor]) {  // If not visited
+    //                     vis[neighbor] = 1;
+    //                     q.push({neighbor, node});
+    //                 } else if (neighbor != parent) {
+    //                     return true;  // Cycle detected
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+    // return false;
+    
+        vector<int>vis(adj.size(),0);
+        queue<pair<int,int>>q;
+        int n=adj.size();
+        for(int i=0;i<n;i++){
+            if(vis[i]==0){
+                vis[i]=1;
+                q.push({i,-1});
+                while(!q.empty()){
+                  auto ele=q.front();
+                  q.pop();
+                  int node=ele.first;
+                  int root=ele.second;
+                  for(int j=0;j<adj[node].size();j++){
+                      if(vis[adj[node][j]]!=0 && adj[node][j]!=root)return true;
+                      else if (adj[node][j]!=root){
+                          q.push({adj[node][j],node});
+                          vis[adj[node][j]]=1;
+                      }
+                  }
                 }
+                
             }
         }
-    }
-    return false;
-    
-        // vector<int>vis(adj.size(),0);
-        // queue<pair<int,int>>q;
-        // int n=adj.size();
-        // for(int i=0;i<n;i++){
-        //     if(vis[i]==0){
-        //         vis[i]=1;
-        //         q.push({vis[i],-1});
-        //         while(!q.empty()){
-        //           auto ele=q.front();
-        //           q.pop();
-        //           int node=ele.first;
-        //           for(int j=0;j<adj[node].size();j++){
-        //               if(vis[adj[node][j]]!=0)return true;
-        //               else{
-        //                   q.push({adj[node][j],node});
-        //               }
-        //           }
-        //         }
-                
-        //     }
-        // }
-        // return false;
+        return false;
         }
 };
 
